@@ -2,10 +2,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  cout << "The value of argc is: " << argc << "\n";
-
-  for (int i{0}; i < argc; i++) {
-    cout << "argv[" << i << "]: " << argv[i] << "\n";
-  }
+  string s;
+  getline(cin, s);
+  cout << "The value taken as an input using getline() is: " << s << "\n";
   return 0;
 }
