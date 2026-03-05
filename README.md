@@ -1,2 +1,0 @@
-# ash
-An academic shell

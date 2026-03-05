@@ -1,4 +1,5 @@
 build/
+iso/
 *.o
-*.out
-compile_commands.json
+*.bin
+*.elf
