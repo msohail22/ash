@@ -19,46 +19,30 @@ To build and run this OS, you will need the following tools:
 
 ## Building the OS
 
-First, clean up any previous build files, then compile the bootstrapper and the kernel, and link them together into the `myos` binary:
+To compile the kernel and generate the bootable ISO image, simply run:
 
 ```bash
-# Clean previous builds (run this if you run into issues)
-rm -rf *.o myos myos.iso isodir/
-
-# Assemble the bootloader
-i686-elf-as boot.s -o boot.o
-
-# Compile the kernel
-i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-
-# Link the final kernel image
-i686-elf-gcc -T linker.ld -o myos -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+make
 ```
 
-## Creating a Bootable ISO
+This will create a `build/` directory containing the compiled object files, the `myos` binary, and the final `myos.iso` bootable image.
 
-To create a bootable CD-ROM image with GRUB:
+To clean up build artifacts:
 
 ```bash
-# Prepare the ISO directory structure
-mkdir -p isodir/boot/grub
-cp myos isodir/boot/myos
-cp grub.cfg isodir/boot/grub/grub.cfg
-
-# Generate the ISO image
-grub-mkrescue -o myos.iso isodir
+make clean
 ```
 
 ## Running the OS
 
-You can use QEMU to test the built OS in two different ways:
+You can use QEMU to test the built OS via the Makefile:
 
 1. **Boot directly from the kernel binary:**
    ```bash
-   qemu-system-i386 -kernel myos
+   make run
    ```
 
 2. **Boot from the generated ISO image:**
    ```bash
-   qemu-system-i386 -cdrom myos.iso
+   make run-iso
    ```

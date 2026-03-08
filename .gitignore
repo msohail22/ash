@@ -1,13 +1,17 @@
 # Build artifacts
 build/
-iso/
+isodir/
+
+# Object / binary outputs
 *.o
 *.bin
 *.elf
 *.iso
+*.img
 
-# Generated kernel binaries
+# Logs / maps
+*.log
+*.map
+
+# Generated kernel binary
 myos
-
-# ISO staging directory
-isodir/
