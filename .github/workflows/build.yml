@@ -10,12 +10,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install dependencies
+    - name: Install dependencies and cross compiler
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential xorriso grub-pc-bin grub-common
+        sudo apt-get install -y build-essential xorriso grub-pc-bin grub-common mtools gcc-i686-linux-gnu binutils-i686-linux-gnu
 
-    # Note: Since your Makefile uses i686-elf-gcc, you might need to install an i686 cross-compiler 
-    # or use a pre-built Docker container with the toolchain on CI in the future.
     - name: Run make
-      run: make clean && make
+      run: make clean && make CC=i686-linux-gnu-gcc AS=i686-linux-gnu-as CFLAGS="-std=gnu99 -ffreestanding -O2 -Wall -Wextra -I include -U__linux__"
